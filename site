@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth scroll-pt-28">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skillence – Skill Smarter, Grow Faster | Digital Agency & Products</title>
+    <meta name="description" content="Skillence helps you grow with Meta Ads, SEO, Web Design, and offers premium software, courses, and digital products at unbeatable prices.">
+    
+    <!-- Fonts: Poppins for headings, Inter for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Config for Brand Colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#0F172A',     // Deep professional blue
+                            lightBlue: '#1E293B', // Slightly lighter blue for cards
+                            accent: '#FACC15',    // Bright Yellow matching the description
+                            darkAccent: '#EAB308', // Darker yellow for hover
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulse-glow 2s infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        'pulse-glow': {
+                            '0%, 100%': { boxShadow: '0 0 0 0 rgba(37, 211, 102, 0.7)' },
+                            '70%': { boxShadow: '0 0 0 15px rgba(37, 211, 102, 0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0F172A;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1E293B;
+        }
+
+        /* Smooth Reveal Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+    </style>
+</head>
+<body class="font-sans text-slate-800 antialiased overflow-x-hidden bg-slate-50">
+
+    <!-- Sticky WhatsApp Button with Original Logo & Glow -->
+    <a href="https://wa.me/918130589114?text=Hi%20Skillence%2C%20I%20am%20interested%20in%20your%20services%20and%20products." 
+       target="_blank"
+       class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:bg-[#20bd5a] transition-all duration-300 hover:scale-110 flex items-center gap-2 group animate-float animate-pulse-glow border-2 border-white">
+        <!-- Original WhatsApp SVG Logo -->
+        <svg viewBox="0 0 24 24" class="w-8 h-8 fill-current" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+        <span class="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-500 whitespace-nowrap font-bold">Chat on WhatsApp</span>
+    </a>
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-40 bg-brand-blue/95 backdrop-blur-sm text-white shadow-lg transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20 md:h-24">
+                <!-- Logo with Tagline (Increased Size) -->
+                <div class="flex-shrink-0 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="flex flex-col justify-center h-full">
+                        <h1 class="font-heading text-3xl md:text-4xl font-bold tracking-tight leading-none">
+                            <span class="text-white">Skill</span><span class="text-brand-accent">ence</span>
+                        </h1>
+                        <span class="text-[11px] md:text-xs text-brand-accent font-medium tracking-wider mt-1">Skill Smarter. Grow Faster.</span>
+                    </div>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8 items-center">
+                        <a href="#home" class="hover:text-brand-accent transition-colors duration-200 font-medium">Home</a>
+                        <a href="#services" class="hover:text-brand-accent transition-colors duration-200 font-medium">Services & Products</a>
+                        <!-- Separated Links -->
+                        <a href="#about" class="hover:text-brand-accent transition-colors duration-200 font-medium">About Us</a>
+                        <a href="#contact" class="hover:text-brand-accent transition-colors duration-200 font-medium">Contact</a>
+                        
+                        <div class="flex items-center gap-4 ml-4 pl-4 border-l border-slate-700">
+                            <!-- Instagram Colored -->
+                            <a href="https://www.instagram.com/skilllence/" 
+                               target="_blank"
+                               class="text-[#E1306C] hover:text-[#E1306C]/80 transition-colors" title="Instagram">
+                                <i data-lucide="instagram" class="w-6 h-6"></i>
+                            </a>
+                            
+                            <!-- YouTube Colored -->
+                            <a href="https://www.youtube.com/@skilllence" 
+                               target="_blank"
+                               class="text-[#FF0000] hover:text-[#FF0000]/80 transition-colors" title="YouTube">
+                                <i data-lucide="youtube" class="w-6 h-6"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-white hover:text-brand-accent focus:outline-none">
+                        <i data-lucide="menu" class="w-8 h-8"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-brand-blue border-t border-slate-700">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-700 hover:text-brand-accent">Home</a>
+                <a href="#services" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-700 hover:text-brand-accent">Services & Products</a>
+                <!-- Separated Links for Mobile -->
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-700 hover:text-brand-accent">About Us</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-700 hover:text-brand-accent">Contact</a>
+                
+                <div class="flex gap-4 justify-center mt-4">
+                     <!-- Instagram Mobile Colored -->
+                     <a href="https://www.instagram.com/skilllence/" 
+                     target="_blank"
+                     class="text-[#E1306C] hover:text-[#E1306C]/80 transition-colors">
+                      <i data-lucide="instagram" class="w-6 h-6"></i>
+                    </a>
+                    <!-- YouTube Mobile Colored -->
+                    <a href="https://www.youtube.com/@skilllence" 
+                        target="_blank"
+                        class="text-[#FF0000] hover:text-[#FF0000]/80 transition-colors">
+                        <i data-lucide="youtube" class="w-6 h-6"></i>
+                    </a>
+                </div>
+
+                <a href="https://wa.me/918130589114?text=Hi%20Skillence%2C%20I%20am%20interested%20in%20your%20services." 
+                   target="_blank"
+                   class="block w-full text-center mt-4 bg-[#25D366] text-white px-3 py-3 rounded-md text-base font-bold flex items-center justify-center gap-2">
+                    <!-- WhatsApp SVG Logo for Mobile Button -->
+                    <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                    </svg>
+                   Chat on WhatsApp
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative bg-brand-blue pt-28 pb-16 lg:pt-48 lg:pb-32 overflow-hidden">
+        <!-- Abstract Background Shapes -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-brand-accent/10 blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-blue-500/10 blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-4xl mx-auto">
+                <span class="inline-block py-1 px-3 rounded-full bg-slate-700/50 border border-slate-600 text-brand-accent text-sm font-semibold mb-6 animate-pulse-slow">
+                    🚀 100% Results Oriented Agency
+                </span>
+                <h1 class="text-3xl md:text-6xl lg:text-7xl font-heading font-extrabold text-white leading-tight mb-6">
+                    Skill Smarter. <br>
+                    <span class="text-brand-accent relative inline-block">
+                        Grow Faster.
+                        <svg class="absolute w-full h-3 -bottom-1 left-0 text-brand-accent opacity-60" viewBox="0 0 100 10" preserveAspectRatio="none">
+                            <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="2" fill="none" />
+                        </svg>
+                    </span>
+                </h1>
+                <p class="text-base md:text-xl text-slate-300 mb-10 max-w-2xl mx-auto font-light">
+                    Welcome to <span class="font-bold text-white">Skillence</span>. From high-converting Meta Ads and Web Design to Premium Software and Digital Products at unbeatable prices.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <!-- Updated WhatsApp Button: Rounded Full -->
+                    <a href="https://wa.me/918130589114?text=Hi%20Skillence%2C%20I%20want%20to%20know%20more%20about%20your%20services." 
+                       target="_blank"
+                       class="w-full sm:w-auto px-10 py-4 bg-brand-accent text-brand-blue font-bold rounded-full hover:bg-brand-darkAccent transition-all transform hover:-translate-y-1 shadow-[0_0_20px_rgba(250,204,21,0.3)] flex justify-center items-center gap-2">
+                        <i data-lucide="message-circle" class="w-5 h-5"></i>
+                        WhatsApp Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 md:py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10 md:mb-16 reveal">
+                <h2 class="text-brand-accent font-bold tracking-wide uppercase text-sm mb-2">Our Offerings</h2>
+                <h3 class="text-3xl md:text-4xl font-heading font-bold text-brand-blue">Agency Services & Digital Products</h3>
+                <p class="text-xs md:text-sm text-slate-500 mt-2 font-medium tracking-wide">
+                    <span class="inline-flex items-center gap-1 text-brand-blue"><i data-lucide="mouse-pointer-2" class="w-3 h-3"></i> Click on any card to inquire on WhatsApp</span>
+                </p>
+                <div class="w-24 h-1 bg-brand-accent mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-6">
+                
+                <!-- Service 1: Meta Ads -->
+                <a href="https://wa.me/918130589114?text=Hello%20Skillence%2C%20I%20am%20interested%20in%20Meta%20Ads%20Expert%20services.%20Please%20share%20details." target="_blank" class="service-card group block bg-white p-4 md:p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 hover:border-brand-accent/50 reveal cursor-pointer">
+                    <div class="w-10 h-10 md:w-14 md:h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-4 md:mb-6 group-hover:bg-brand-accent/20 transition-colors">
+                        <i data-lucide="target" class="service-icon w-5 h-5 md:w-8 md:h-8 text-brand-blue"></i>
+                    </div>
+                    <h4 class="text-base md:text-xl font-bold text-brand-blue mb-2 md:mb-3 leading-tight group-hover:text-brand-darkAccent transition-colors">Meta Ads Expert</h4>
+                    <p class="text-slate-600 text-xs md:text-sm">High-ROI Facebook and Instagram ad campaigns tailored to skyrocket your business growth.</p>
+                </a>
+
+                <!-- Service 2: SEO & GMB -->
+                <a href="https://wa.me/918130589114?text=Hello%20Skillence%2C%20I%20am%20interested%20in%20SEO%20%26%20GMB%20Services.%20Please%20share%20details." target="_blank" class="service-card group block bg-white p-4 md:p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 hover:border-brand-accent/50 reveal delay-75 cursor-pointer">
+                    <div class="w-10 h-10 md:w-14 md:h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-4 md:mb-6 group-hover:bg-brand-accent/20 transition-colors">
+                        <i data-lucide="map-pin" class="service-icon w-5 h-5 md:w-8 md:h-8 text-brand-blue"></i>
+                    </div>
+                    <h4 class="text-base md:text-xl font-bold text-brand-blue mb-2 md:mb-3 leading-tight group-hover:text-brand-darkAccent transition-colors">SEO & GMB Services</h4>
+                    <p class="text-slate-600 text-xs md:text-sm">Google My Business listing creation, optimization, and local SEO to rank you #1.</p>
+                </a>
+
+                <!-- Service 3: Website Design -->
+                <a href="https://wa.me/918130589114?text=Hello%20Skillence%2C%20I%20am%20interested%20in%20Website%20Design%20Services.%20Please%20share%20details." target="_blank" class="service-card group block bg-white p-4 md:p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 hover:border-brand-accent/50 reveal delay-100 cursor-pointer">
+                    <div class="w-10 h-10 md:w-14 md:h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-4 md:mb-6 group-hover:bg-brand-accent/20 transition-colors">
+                        <i data-lucide="layout" class="service-icon w-5 h-5 md:w-8 md:h-8 text-brand-blue"></i>
+                    </div>
+                    <h4 class="text-base md:text-xl font-bold text-brand-blue mb-2 md:mb-3 leading-tight group-hover:text-brand-darkAccent transition-colors">Website Designer</h4>
+                    <p class="text-slate-600 text-xs md:text-sm">Stunning Portfolio and Business websites designed to convert visitors into clients.</p>
+                </a>
+
+                <!-- Service 4: Graphic Design -->
+                <a href="https://wa.me/918130589114?text=Hello%20Skillence%2C%20I%20am%20interested%20in%20Logo%20%26%20Graphics%20Services.%20Please%20share%20details." target="_blank" class="service-card group block bg-white p-4 md:p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 hover:border-brand-accent/50 reveal delay-150 cursor-pointer">
+                    <div class="w-10 h-10 md:w-14 md:h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-4 md:mb-6 group-hover:bg-brand-accent/20 transition-colors">
+                        <i data-lucide="palette" class="service-icon w-5 h-5 md:w-8 md:h-8 text-brand-blue"></i>
+                    </div>
+                    <h4 class="text-base md:text-xl font-bold text-brand-blue mb-2 md:mb-3 leading-tight group-hover:text-brand-darkAccent transition-colors">Logo & Graphics</h4>
+                    <p class="text-slate-600 text-xs md:text-sm">Professional Logo design and creative graphic designing for your brand identity.</p>
+                </a>
+
+                <!-- Service 5: Cheap Software -->
+                <a href="https://wa.me/918130589114?text=Hello%20Skillence%2C%20I%20am%20interested%20in%20Premium%20Software.%20Please%20share%20price%20list." target="_blank" class="service-card group block bg-white p-4 md:p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 hover:border-brand-accent/50 reveal delay-200 cursor-pointer">
+                    <div class="w-10 h-10 md:w-14 md:h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-4 md:mb-6 group-hover:bg-brand-accent/20 transition-colors">
+                        <i data-lucide="zap" class="service-icon w-5 h-5 md:w-8 md:h-8 text-brand-blue"></i>
+                    </div>
+                    <h4 class="text-base md:text-xl font-bold text-brand-blue mb-2 md:mb-3 leading-tight group-hover:text-brand-darkAccent transition-colors">Premium Software</h4>
+                    <p class="text-slate-600 text-xs md:text-sm">Get Canva Pro, YouTube Premium, Gemini, Eleven Labs, Adobe Creative Cloud at cheap prices.</p>
+                </a>
+
+                <!-- Service 6: Influencer Courses -->
+                <a href="https://wa.me/918130589114?text=Hello%20Skillence%2C%20I%20am%20interested%20in%20Influencer%20Courses.%20Please%20share%20details." target="_blank" class="service-card group block bg-white p-4 md:p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 hover:border-brand-accent/50 reveal delay-250 cursor-pointer">
+                    <div class="w-10 h-10 md:w-14 md:h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-4 md:mb-6 group-hover:bg-brand-accent/20 transition-colors">
+                        <i data-lucide="graduation-cap" class="service-icon w-5 h-5 md:w-8 md:h-8 text-brand-blue"></i>
+                    </div>
+                    <h4 class="text-base md:text-xl font-bold text-brand-blue mb-2 md:mb-3 leading-tight group-hover:text-brand-darkAccent transition-colors">Influencer Courses</h4>
+                    <p class="text-slate-600 text-xs md:text-sm">Access to premium courses from top YouTubers and Influencers.</p>
+                </a>
+
+                <!-- Service 7: OTT Subscriptions -->
+                <a href="https://wa.me/918130589114?text=Hello%20Skillence%2C%20I%20am%20interested%20in%20OTT%20Subscriptions.%20Please%20share%20plans." target="_blank" class="service-card group block bg-white p-4 md:p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 hover:border-brand-accent/50 reveal delay-300 cursor-pointer">
+                    <div class="w-10 h-10 md:w-14 md:h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-4 md:mb-6 group-hover:bg-brand-accent/20 transition-colors">
+                        <i data-lucide="tv" class="service-icon w-5 h-5 md:w-8 md:h-8 text-brand-blue"></i>
+                    </div>
+                    <h4 class="text-base md:text-xl font-bold text-brand-blue mb-2 md:mb-3 leading-tight group-hover:text-brand-darkAccent transition-colors">OTT Subscriptions</h4>
+                    <p class="text-slate-600 text-xs md:text-sm">Unlimited entertainment with cheap OTT subscriptions for all major platforms.</p>
+                </a>
+
+                <!-- Service 8: Digital Bundles -->
+                <a href="https://wa.me/918130589114?text=Hello%20Skillence%2C%20I%20am%20interested%20in%20Digital%20Bundles.%20Please%20share%20details." target="_blank" class="service-card group block bg-white p-4 md:p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 hover:border-brand-accent/50 reveal delay-350 cursor-pointer">
+                    <div class="w-10 h-10 md:w-14 md:h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-4 md:mb-6 group-hover:bg-brand-accent/20 transition-colors">
+                        <i data-lucide="package" class="service-icon w-5 h-5 md:w-8 md:h-8 text-brand-blue"></i>
+                    </div>
+                    <h4 class="text-base md:text-xl font-bold text-brand-blue mb-2 md:mb-3 leading-tight group-hover:text-brand-darkAccent transition-colors">Digital Bundles</h4>
+                    <p class="text-slate-600 text-xs md:text-sm">Mega Courses Reel Bundle and unlimited digital products for content creators.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW ABOUT SECTION -->
+    <section id="about" class="pt-4 pb-16 md:pt-8 md:pb-20 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Changed to md:grid-cols-2 for better side-by-side view on tablets/laptops -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-center">
+                <!-- Left Side: Image/Graphic -->
+                <div class="relative reveal">
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-slate-100">
+                        <div class="bg-brand-blue h-64 md:h-96 w-full flex items-center justify-center text-center p-8">
+                            <div>
+                                <!-- Bar Chart Icon -->
+                                <i data-lucide="bar-chart-2" class="w-16 h-16 md:w-20 md:h-20 text-brand-accent mx-auto mb-4"></i>
+                                <h3 class="text-white text-xl md:text-2xl font-bold">Data Driven Results</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Stats Floater -->
+                    <div class="absolute -bottom-6 -right-6 bg-brand-accent p-4 md:p-6 rounded-xl shadow-xl hidden md:block animate-float">
+                        <p class="text-brand-blue font-bold text-2xl md:text-3xl">100%</p>
+                        <p class="text-brand-blue font-medium text-xs md:text-sm">Client Satisfaction</p>
+                    </div>
+                </div>
+
+                <!-- Right Side: Content -->
+                <div class="reveal delay-100">
+                    <h2 class="text-brand-accent font-bold tracking-wide uppercase text-sm mb-2">About Us</h2>
+                    <h3 class="text-3xl md:text-4xl font-heading font-bold text-brand-blue mb-6">Who We Are</h3>
+                    <p class="text-slate-600 mb-6 text-base md:text-lg leading-relaxed">
+                        <span class="font-bold text-brand-blue">Skillence</span> is a premier digital marketing agency dedicated to helping businesses navigate the complex digital landscape. We don't just run ads; we build brands.
+                    </p>
+                    <p class="text-slate-600 mb-8 leading-relaxed text-sm md:text-base">
+                        Our mission is simple: <span class="italic font-medium text-brand-blue">Skill Smarter. Grow Faster.</span> Whether you are a startup or an established enterprise, our team of experts uses modern strategies to deliver measurable growth and ROI.
+                    </p>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="check-circle-2" class="text-green-500 w-5 h-5 md:w-6 md:h-6"></i>
+                            <span class="text-slate-700 font-medium text-sm md:text-base">Strategic Planning & Execution</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="check-circle-2" class="text-green-500 w-5 h-5 md:w-6 md:h-6"></i>
+                            <span class="text-slate-700 font-medium text-sm md:text-base">Creative & Technical Expertise</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="check-circle-2" class="text-green-500 w-5 h-5 md:w-6 md:h-6"></i>
+                            <span class="text-slate-700 font-medium text-sm md:text-base">24/7 Dedicated Support</span>
+                        </li>
+                    </ul>
+
+                    <a href="#services" class="inline-flex items-center gap-2 text-brand-blue font-bold border-b-2 border-brand-accent hover:text-brand-darkAccent transition-colors pb-1 text-base md:text-lg">
+                        View Our Services <i data-lucide="arrow-right" class="w-4 h-4 md:w-5 md:h-5"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section id="why-us" class="py-16 md:py-20 bg-brand-blue text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
+                <div class="reveal">
+                    <h2 class="text-brand-accent font-bold tracking-wide uppercase text-sm mb-2">Why Skillence?</h2>
+                    <h3 class="text-3xl md:text-5xl font-heading font-bold mb-6">Expert Services.<br> Unbeatable Prices.</h3>
+                    <p class="text-slate-300 mb-8 text-base md:text-lg">
+                        Whether you need high-end digital marketing or affordable tools to create content, Skillence is your one-stop solution.
+                    </p>
+                    <a href="https://wa.me/918130589114" target="_blank" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-bold rounded-lg text-brand-blue bg-brand-accent hover:bg-brand-darkAccent md:text-lg transition-all shadow-[0_0_15px_rgba(250,204,21,0.5)]">
+                        Get Started Today
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 reveal delay-200">
+                    <div class="bg-brand-lightBlue p-6 rounded-xl border border-slate-700">
+                        <i data-lucide="trending-up" class="w-10 h-10 text-brand-accent mb-4"></i>
+                        <h4 class="text-xl font-bold mb-2">Growth Focused</h4>
+                        <p class="text-slate-400 text-sm">Strategies tailored to maximize your online presence.</p>
+                    </div>
+                    <div class="bg-brand-lightBlue p-6 rounded-xl border border-slate-700">
+                        <i data-lucide="wallet" class="w-10 h-10 text-brand-accent mb-4"></i>
+                        <h4 class="text-xl font-bold mb-2">Best Pricing</h4>
+                        <p class="text-slate-400 text-sm">Software and services at the market's most affordable rates.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section (Ready to Skill Smarter?) -->
+    <section id="contact" class="py-16 bg-white">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-slate-50 rounded-3xl shadow-2xl overflow-hidden border border-slate-200 reveal">
+                <div class="p-8 md:p-10 text-center">
+                    <h2 class="text-2xl md:text-4xl font-heading font-bold text-brand-blue mb-4">Ready to Skill Smarter?</h2>
+                    <p class="text-slate-600 mb-8 max-w-2xl mx-auto text-sm md:text-base">
+                        Contact <span class="font-bold text-brand-blue">Skillence</span> today. Whether it's a new website, Meta Ads, or cheap software access, we have you covered.
+                    </p>
+                    
+                    <div class="flex flex-col md:flex-row justify-center items-center gap-6 mb-8">
+                        <!-- Chat Box -->
+                        <div class="flex flex-col items-center p-6 bg-white rounded-xl shadow-sm border border-slate-100 w-full md:w-64 hover:border-brand-accent transition-colors">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-3">
+                                <i data-lucide="message-square" class="w-6 h-6 text-green-600"></i>
+                            </div>
+                            <h4 class="font-bold text-lg text-brand-blue mb-2">Chat Us</h4>
+                            <a href="https://wa.me/918130589114" target="_blank" class="text-slate-600 hover:text-white hover:bg-green-600 transition-all px-4 py-2 rounded-full border border-green-600 font-semibold text-sm">Chat on WhatsApp</a>
+                        </div>
+                        
+                        <!-- Email Box -->
+                        <div class="flex flex-col items-center p-6 bg-white rounded-xl shadow-sm border border-slate-100 w-full md:w-64 hover:border-brand-accent transition-colors">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-3">
+                                <i data-lucide="mail" class="w-6 h-6 text-brand-blue"></i>
+                            </div>
+                            <h4 class="font-bold text-lg text-brand-blue mb-2">Email Us</h4>
+                            <a href="mailto:skillencee@gmail.com" class="text-slate-600 hover:text-white hover:bg-brand-blue transition-all px-4 py-2 rounded-full border border-brand-blue font-semibold text-sm">skillencee@gmail.com</a>
+                        </div>
+                    </div>
+
+                    <a href="https://wa.me/918130589114?text=Hi%20Skillence%2C%20I%20am%20interested%20in%20your%20services%20and%20products." 
+                       target="_blank"
+                       class="inline-block w-full md:w-auto px-10 py-4 bg-[#25D366] text-white font-bold rounded-lg hover:bg-[#20bd5a] transition-all transform hover:-translate-y-1 shadow-lg text-lg">
+                        <div class="flex items-center justify-center gap-2">
+                            <i data-lucide="message-circle" class="w-6 h-6"></i>
+                            Chat on WhatsApp
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer with ID for About Link -->
+    <footer id="footer" class="bg-brand-blue text-slate-400 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-1">
+                    <!-- Footer Logo also updated with tagline -->
+                    <div class="flex flex-col mb-4">
+                        <h2 class="font-heading text-3xl md:text-4xl font-bold text-white leading-none">
+                            Skill<span class="text-brand-accent">ence</span>
+                        </h2>
+                        <span class="text-[11px] md:text-xs text-brand-accent font-medium tracking-wide mt-1">Skill Smarter. Grow Faster.</span>
+                    </div>
+                    <p class="text-sm leading-relaxed mb-4">
+                        Skill Smarter, Grow Faster. Your partner for digital marketing excellence and premium digital tools.
+                    </p>
+                    <div class="flex space-x-4">
+                        <!-- Instagram Colored -->
+                        <a href="https://www.instagram.com/skilllence/" target="_blank" class="text-[#E1306C] hover:text-[#E1306C]/80 transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                        <!-- YouTube Colored -->
+                        <a href="https://www.youtube.com/@skilllence" target="_blank" class="text-[#FF0000] hover:text-[#FF0000]/80 transition-colors"><i data-lucide="youtube" class="w-5 h-5"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Services</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Meta Ads Expert</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Website Design</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">SEO & GMB</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Graphic Design</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Products</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Cheap Software</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Influencer Courses</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">OTT Subscriptions</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Digital Bundles</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Contact</h3>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-center gap-2">
+                            <i data-lucide="message-square" class="w-4 h-4 text-brand-accent"></i>
+                            <a href="https://wa.me/918130589114" target="_blank" class="hover:text-white transition-colors">Chat Us</a>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i data-lucide="message-circle" class="w-4 h-4 text-brand-accent"></i>
+                            <a href="https://wa.me/918130589114" target="_blank" class="hover:text-white transition-colors">WhatsApp Chat</a>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i data-lucide="mail" class="w-4 h-4 text-brand-accent"></i>
+                            <a href="mailto:skillencee@gmail.com" class="hover:text-white transition-colors">skillencee@gmail.com</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-slate-800 mt-12 pt-8 text-center text-sm">
+                <p>&copy; <script>document.write(new Date().getFullYear())</script> Skillence. All rights reserved. <span class="hidden sm:inline">|</span> <span class="block sm:inline mt-1 sm:mt-0">Crafted with ❤️ for your Growth 🚀</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-xl');
+                navbar.classList.add('bg-brand-blue');
+                navbar.classList.remove('bg-brand-blue/95');
+            } else {
+                navbar.classList.remove('shadow-xl');
+                navbar.classList.remove('bg-brand-blue');
+                navbar.classList.add('bg-brand-blue/95');
+            }
+        });
+
+        // Intersection Observer for Scroll Animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
