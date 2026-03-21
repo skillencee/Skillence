@@ -30,7 +30,7 @@
   "name":"Skillence",
   "description":"India's most affordable professional web development agency. Websites starting at ₹2,999.",
   "url":"https://skillence.in",
-  "telephone":"+918130589114",
+  "telephone":"+918030589114",
   "priceRange":"₹₹",
   "address":{"@type":"PostalAddress","addressLocality":"Delhi","addressRegion":"Delhi","addressCountry":"IN"},
   "geo":{"@type":"GeoCoordinates","latitude":"28.6139","longitude":"77.2090"},
@@ -61,7 +61,7 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
 /* ═══════════════════════════════════════
    NOISE + BLOBS
 ═══════════════════════════════════════ */
-body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none;z-index:998}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none;z-index:-1}
 .blobs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
 .blobs b{position:absolute;border-radius:50%;filter:blur(120px)}
 .blobs b:nth-child(1){width:min(640px,80vw);height:min(640px,80vw);background:#ff6200;opacity:.08;top:-30%;right:-15%;animation:b1 14s ease-in-out infinite alternate}
@@ -181,23 +181,60 @@ nav{position:fixed;top:62px;left:0;right:0;z-index:101;padding:11px 0;background
 .tlabel{color:var(--muted);font-size:.74rem;font-weight:500;margin-top:4px}
 
 /* ═══════════════════════════════════════
-   MOBILE TOUCH / BUTTON FIXES
+   GLOBAL MOBILE TOUCH FIXES
 ═══════════════════════════════════════ */
-a,button,.tab-btn,.pc-btn,.btnmain,.btnout,.cbtn,.cc,.faq-q,.rcta,.rev-cta,.wab-btn,.wa-fab,.load-more-btn{
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
+html,body{-webkit-tap-highlight-color:rgba(0,0,0,0)}
+
+/* All interactive — no tap delay */
+a,button,[onclick],.tab-btn,.faq-q,.rcta,.rev-cta,
+.pc-btn,.btnmain,.btnout,.cbtn,.cc,.load-more-btn,
+.wa-fab,.wab-btn,.pclose,.wab-hdr-close,.toast-close,
+.hamburger,.mobile-nav a,.work-card{
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+  cursor:pointer;
 }
-a{cursor:pointer}
-/* ensure all links are tappable */
-.btnmain,.btnout,.pc-btn,.cc,.cbtn,.wi-link,.work-link,.wp-btn,.wab-btn,.nvcta,.mobile-nav-cta{
-  display:inline-flex;
-  min-height:44px;
-  align-items:center;
-}
-/* tab pane single column on mobile */
+
+/* Minimum 48px tap targets */
+.btnmain,.btnout,.nvcta,.pc-btn,.cbtn,.cc,.tab-btn,.load-more-btn,.rev-cta-btn{min-height:48px}
+.btnmain,.btnout,.nvcta,.pc-btn,.cc,.tab-btn{display:inline-flex;align-items:center;justify-content:center}
+
+/* Fix z-index stacking — blobs/noise MUST be below everything */
+.blobs{z-index:0!important;pointer-events:none!important}
+body::after{z-index:-1!important;pointer-events:none!important}
+
+/* Section z-index */
+section,.tstrip,.footer-main,footer{position:relative;z-index:1}
+.container{position:relative;z-index:3}
+nav{z-index:101}
+.topbar{z-index:102}
+.util-bar{z-index:103}
+
+/* WA widget and popups above everything */
+.wa-widget{z-index:9999!important}
+.toast-pop{z-index:9998!important}
+.povl{z-index:9997!important}
+.mobile-nav{z-index:9996!important}
+
+/* Work card overlay — never block the anchor itself */
+.wp-overlay{pointer-events:none!important}
+.wp-btn{pointer-events:none!important}
+@media(hover:none){.wp-overlay{opacity:1!important}}
+
+/* FAQ full-width tap */
+.faq-q{width:100%;min-height:52px}
+
+/* Pricing button */
+.pc-btn{min-height:48px;display:flex;align-items:center;justify-content:center}
+
+/* Contact channel buttons */
+.cc{min-height:56px}
+
+/* Tab pane mobile */
 @media(max-width:768px){
-  .tab-pane.active{display:flex!important;flex-direction:column!important;gap:24px}
+  .tab-pane.active{display:flex!important;flex-direction:column!important;gap:24px!important}
   .why-grid{display:grid;grid-template-columns:1fr}
+  .tabs-nav{-webkit-overflow-scrolling:touch}
 }
 .toast-pop{
   position:fixed;bottom:100px;left:20px;z-index:600;
@@ -299,7 +336,7 @@ a{cursor:pointer}
    OUR WORK
 ═══════════════════════════════════════ */
 .work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px}
-.work-card{border-radius:var(--r16);overflow:hidden;border:1px solid var(--border);background:var(--card);transition:all .35s;opacity:0;transform:translateY(30px)}
+.work-card{border-radius:var(--r16);overflow:hidden;border:1px solid var(--border);background:var(--card);transition:all .35s;opacity:0;transform:translateY(30px);display:block;text-decoration:none;color:var(--text)}
 .work-card.vis{opacity:1;transform:translateY(0)}
 .work-card:hover{border-color:rgba(255,98,0,.28);box-shadow:0 18px 50px rgba(0,0,0,.5);transform:translateY(-5px)!important}
 .wb{background:#14142a;border-bottom:1px solid var(--border);padding:9px 13px;display:flex;align-items:center;gap:8px}
@@ -309,15 +346,16 @@ a{cursor:pointer}
 .wb-dot:nth-child(2){background:#f59e0b}
 .wb-dot:nth-child(3){background:#22c55e}
 .wb-url{flex:1;background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:4px;padding:3px 9px;font-size:.66rem;color:var(--muted);font-family:monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.wp{position:relative;height:200px;overflow:hidden;background:#0d0d1a;cursor:pointer}
+.wp{position:relative;height:200px;overflow:hidden;background:#0d0d1a}
 .wp iframe{width:200%;height:200%;transform:scale(.5);transform-origin:top left;border:none;display:block;pointer-events:none}
-.wp-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(7,7,13,.6);opacity:0;transition:opacity .3s}
+.wp-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(7,7,13,.55);opacity:0;transition:opacity .3s;pointer-events:none}
 .work-card:hover .wp-overlay{opacity:1}
-.wp-btn{background:var(--accent);color:#fff;padding:9px 18px;border-radius:7px;font-size:.8rem;font-weight:700;text-decoration:none}
+@media(hover:none){.wp-overlay{opacity:1;pointer-events:all}}
+.wp-btn{background:var(--accent);color:#fff;padding:9px 18px;border-radius:7px;font-size:.8rem;font-weight:700;text-decoration:none;pointer-events:all}
 .wi-info{padding:16px 18px}
-.wi-info h4{font-size:.9rem;font-weight:700;margin-bottom:4px}
+.wi-info h4{font-size:.9rem;font-weight:700;margin-bottom:4px;color:var(--text)}
 .wi-info p{color:var(--muted);font-size:.77rem;line-height:1.58;margin-bottom:10px}
-.wi-link{display:inline-flex;align-items:center;gap:5px;color:var(--accent);font-size:.76rem;font-weight:700;text-decoration:none;transition:gap .2s}
+.wi-link{display:inline-flex;align-items:center;gap:5px;color:var(--accent);font-size:.76rem;font-weight:700;text-decoration:none;transition:gap .2s;-webkit-tap-highlight-color:transparent}
 .wi-link:hover{gap:9px}
 
 /* ═══════════════════════════════════════
@@ -378,12 +416,12 @@ a{cursor:pointer}
 .faq-list{max-width:780px;margin:0 auto;margin-top:48px;display:flex;flex-direction:column;gap:10px}
 .faq-item{background:var(--card);border:1px solid var(--border);border-radius:var(--r12);overflow:hidden;transition:border-color .25s}
 .faq-item.open{border-color:rgba(255,98,0,.22)}
-.faq-q{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;cursor:pointer;font-weight:700;font-size:.9rem;transition:color .2s}
-.faq-q:hover{color:var(--accent)}
-.faq-ico{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;transition:all .3s}
-.faq-item.open .faq-ico{background:var(--accent);transform:rotate(45deg)}
+.faq-q{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;cursor:pointer;font-weight:700;font-size:.9rem;transition:color .2s;width:100%;background:none;border:none;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;text-align:left;-webkit-tap-highlight-color:transparent}
+.faq-q:hover,.faq-item.open .faq-q{color:var(--accent)}
+.faq-ico{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;transition:all .3s;pointer-events:none}
+.faq-item.open .faq-ico{background:var(--accent);border-color:var(--accent);transform:rotate(45deg);color:#fff}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.22,1,.36,1),padding .3s}
-.faq-item.open .faq-a{max-height:200px}
+.faq-item.open .faq-a{max-height:600px}
 .faq-a-inner{padding:0 20px 18px;color:var(--muted);font-size:.86rem;line-height:1.75}
 
 /* ═══════════════════════════════════════
@@ -653,11 +691,11 @@ a{cursor:pointer}
 <div class="util-bar">
   <div class="util-inner">
     <div class="util-left">
-      <a href="tel:+918130589114" class="util-item">
+      <a href="tel:+918030589114" class="util-item">
         <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
-        +91 8130589114
+        +91 8030589114
       </a>
-      <a href="https://wa.me/918130589114" class="util-item" target="_blank">
+      <a href="https://wa.me/918030589114" class="util-item" target="_blank">
         <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967c-.273-.099-.471-.148-.67.15c-.197.297-.767.966-.94 1.164c-.173.199-.347.223-.644.075c-.297-.15-1.255-.463-2.39-1.475c-.883-.788-1.48-1.761-1.653-2.059c-.173-.297-.018-.458.13-.606c.134-.133.298-.347.446-.52c.149-.174.198-.298.298-.497c.099-.198.05-.371-.025-.52c-.075-.149-.669-1.612-.916-2.207c-.242-.579-.487-.5-.669-.51c-.173-.008-.371-.01-.57-.01c-.198 0-.52.074-.792.372c-.272.297-1.04 1.016-1.04 2.479c0 1.462 1.065 2.875 1.213 3.074c.149.198 2.096 3.2 5.077 4.487c.709.306 1.262.489 1.694.625c.712.227 1.36.195 1.871.118c.571-.085 1.758-.719 2.006-1.413c.248-.694.248-1.289.173-1.413c-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214l-3.741.982l.998-3.648l-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884c2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
         WhatsApp Now
       </a>
@@ -680,8 +718,8 @@ a{cursor:pointer}
 <!-- ══════════════════ MARQUEE ══════════════════ -->
 <div class="topbar" aria-hidden="true">
   <div class="topbar-track">
-    <span>🏆 India's No.1 Cheapest Web Development Agency &nbsp;|&nbsp; Websites Starting ₹2,999 Only &nbsp;|&nbsp; 200+ Happy Clients &nbsp;|&nbsp; 7-Day Delivery Guarantee &nbsp;|&nbsp; Free Consultation &nbsp;|&nbsp; Call: +91 8130589114 &nbsp;|&nbsp; Follow us @skilllence on Instagram &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-    <span>🏆 India's No.1 Cheapest Web Development Agency &nbsp;|&nbsp; Websites Starting ₹2,999 Only &nbsp;|&nbsp; 200+ Happy Clients &nbsp;|&nbsp; 7-Day Delivery Guarantee &nbsp;|&nbsp; Free Consultation &nbsp;|&nbsp; Call: +91 8130589114 &nbsp;|&nbsp; Follow us @skilllence on Instagram &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <span>🏆 India's No.1 Cheapest Web Development Agency &nbsp;|&nbsp; Websites Starting ₹2,999 Only &nbsp;|&nbsp; 200+ Happy Clients &nbsp;|&nbsp; 7-Day Delivery Guarantee &nbsp;|&nbsp; Free Consultation &nbsp;|&nbsp; Call: +91 8030589114 &nbsp;|&nbsp; Follow us @skilllence on Instagram &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <span>🏆 India's No.1 Cheapest Web Development Agency &nbsp;|&nbsp; Websites Starting ₹2,999 Only &nbsp;|&nbsp; 200+ Happy Clients &nbsp;|&nbsp; 7-Day Delivery Guarantee &nbsp;|&nbsp; Free Consultation &nbsp;|&nbsp; Call: +91 8030589114 &nbsp;|&nbsp; Follow us @skilllence on Instagram &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
   </div>
 </div>
 
@@ -702,11 +740,11 @@ a{cursor:pointer}
       <a href="#contact">Contact</a>
     </div>
     <div class="nv-right">
-      <a href="tel:+918130589114" class="nv-phone">
+      <a href="tel:+918030589114" class="nv-phone">
         <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
         Call Now
       </a>
-      <a href="https://wa.me/918130589114?text=Hi%20Skillence!%20I%20want%20a%20free%20quote%20for%20my%20website." target="_blank" rel="noopener" class="nvcta">Free Quote →</a>
+      <a href="https://wa.me/918030589114?text=Hi%20Skillence!%20I%20want%20a%20free%20quote%20for%20my%20website." target="_blank" rel="noopener" class="nvcta">Free Quote →</a>
       <button class="hamburger" id="hamBtn" onclick="toggleMenu()" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
@@ -717,14 +755,14 @@ a{cursor:pointer}
 <!-- Mobile Nav -->
 <div class="mobile-nav" id="mobileNav">
   <button class="mobile-nav-close" onclick="toggleMenu()">✕</button>
-  <a href="#service" onclick="toggleMenu()">Service</a>
-  <a href="#process" onclick="toggleMenu()">Process</a>
-  <a href="#work" onclick="toggleMenu()">Our Work</a>
-  <a href="#pricing" onclick="toggleMenu()">Pricing</a>
-  <a href="#reviews" onclick="toggleMenu()">Reviews</a>
-  <a href="#faq" onclick="toggleMenu()">FAQ</a>
-  <a href="#contact" onclick="toggleMenu()">Contact</a>
-  <a href="https://wa.me/918130589114?text=Hi%20Skillence!%20I%20want%20a%20free%20quote%20for%20a%20website." target="_blank" rel="noopener" class="mobile-nav-cta">💬 Get Free Quote</a>
+  <a href="#service">Service</a>
+  <a href="#process">Process</a>
+  <a href="#work">Our Work</a>
+  <a href="#pricing">Pricing</a>
+  <a href="#reviews">Reviews</a>
+  <a href="#faq">FAQ</a>
+  <a href="#contact">Contact</a>
+  <a href="https://wa.me/918030589114?text=Hi%20Skillence!%20I%20want%20a%20free%20quote%20for%20a%20website." target="_blank" rel="noopener" class="mobile-nav-cta">💬 Get Free Quote</a>
 </div>
 
 <!-- ══════════════════ HERO ══════════════════ -->
@@ -735,7 +773,7 @@ a{cursor:pointer}
       <h1>Your Competitors Have<br>a Better Website.<br><span class="grad">Let's Fix That Today.</span></h1>
       <p class="hsub">We build lightning-fast, conversion-optimised websites that rank on Google and bring you more customers — at the most affordable prices in India. Starting at just ₹2,999.</p>
       <div class="hbtns">
-        <a href="https://wa.me/918130589114?text=Hi%20Skillence!%20I%20want%20a%20professional%20website%20for%20my%20business.%20Please%20share%20your%20packages%20and%20pricing." target="_blank" rel="noopener" class="btnmain">💬 Free Quote on WhatsApp</a>
+        <a href="https://wa.me/918030589114?text=Hi%20Skillence!%20I%20want%20a%20professional%20website%20for%20my%20business.%20Please%20share%20your%20packages%20and%20pricing." target="_blank" rel="noopener" class="btnmain">💬 Free Quote on WhatsApp</a>
         <a href="#work" class="btnout">See Our Work ↓</a>
       </div>
       <div class="hero-trust">
@@ -768,10 +806,10 @@ a{cursor:pointer}
     </div>
     <div style="margin-top:36px">
       <div class="tabs-nav">
-        <button type="button" class="tab-btn active" onclick="switchTab('portfolio',this)">Portfolio Website</button>
-        <button type="button" class="tab-btn" onclick="switchTab('business',this)">Business Website</button>
-        <button type="button" class="tab-btn" onclick="switchTab('shopify',this)">Shopify Store</button>
-        <button type="button" class="tab-btn" onclick="switchTab('landing',this)">Landing Page</button>
+        <button type="button" class="tab-btn active" onclick="switchTab('portfolio')">Portfolio Website</button>
+        <button type="button" class="tab-btn" onclick="switchTab('business')">Business Website</button>
+        <button type="button" class="tab-btn" onclick="switchTab('shopify')">Shopify Store</button>
+        <button type="button" class="tab-btn" onclick="switchTab('landing')">Landing Page</button>
       </div>
 
       <!-- Portfolio Tab -->
@@ -783,7 +821,7 @@ a{cursor:pointer}
           <div class="svc-tags">
             <span class="stg">Custom Design</span><span class="stg">Mobile Responsive</span><span class="stg">Fast Loading</span><span class="stg">SEO-Ready</span><span class="stg">Contact Form</span><span class="stg">WhatsApp CTA</span>
           </div>
-          <a href="https://wa.me/918130589114?text=Hi%20Skillence!%20I%20want%20a%20Portfolio%20Website%20at%20Rs.2999.%20Please%20share%20details." target="_blank" rel="noopener" class="btnmain">Get Portfolio — ₹2,999 →</a>
+          <a href="https://wa.me/918030589114?text=Hi%20Skillence!%20I%20want%20a%20Portfolio%20Website%20at%20Rs.2999.%20Please%20share%20details." target="_blank" rel="noopener" class="btnmain">Get Portfolio — ₹2,999 →</a>
         </div>
         <div class="svc-feats">
           <div class="sf"><div class="sf-ic">🎨</div><div><h4>100% Custom Design</h4><p>No templates. Your site is designed from scratch to match your personal brand perfectly.</p></div></div>
@@ -802,7 +840,7 @@ a{cursor:pointer}
           <div class="svc-tags">
             <span class="stg">Multi-Section Design</span><span class="stg">Lead Forms</span><span class="stg">Google Maps</span><span class="stg">Live Chat</span><span class="stg">Analytics</span><span class="stg">Advanced SEO</span>
           </div>
-          <a href="https://wa.me/918130589114?text=Hi%20Skillence!%20I%20want%20a%20Business%20Portfolio%20Website%20at%20Rs.9999.%20Please%20share%20details." target="_blank" rel="noopener" class="btnmain">Get Business Site — ₹9,999 →</a>
+          <a href="https://wa.me/918030589114?text=Hi%20Skillence!%20I%20want%20a%20Business%20Portfolio%20Website%20at%20Rs.9999.%20Please%20share%20details." target="_blank" rel="noopener" class="btnmain">Get Business Site — ₹9,999 →</a>
         </div>
         <div class="svc-feats">
           <div class="sf"><div class="sf-ic">🏢</div><div><h4>Full Business Identity</h4><p>About, Services, Testimonials, Gallery, Blog, Contact — a complete digital headquarters for your business.</p></div></div>
@@ -821,7 +859,7 @@ a{cursor:pointer}
           <div class="svc-tags">
             <span class="stg">Custom Theme Design</span><span class="stg">Payment Gateway</span><span class="stg">Product Catalog</span><span class="stg">Order System</span><span class="stg">Mobile Store</span><span class="stg">Discount Codes</span>
           </div>
-          <a href="https://wa.me/918130589114?text=Hi%20Skillence!%20I%20want%20a%20Shopify%20Full%20Web%20Store.%20Please%20share%20details%20and%20pricing." target="_blank" rel="noopener" class="btnmain">Get Shopify Store — ₹5,999 →</a>
+          <a href="https://wa.me/918030589114?text=Hi%20Skillence!%20I%20want%20a%20Shopify%20Full%20Web%20Store.%20Please%20share%20details%20and%20pricing." target="_blank" rel="noopener" class="btnmain">Get Shopify Store — ₹5,999 →</a>
         </div>
         <div class="svc-feats">
           <div class="sf"><div class="sf-ic">💳</div><div><h4>Payment Gateway Setup</h4><p>Razorpay, PayU, UPI, Net Banking — all payment methods configured so customers can buy easily.</p></div></div>
@@ -840,7 +878,7 @@ a{cursor:pointer}
           <div class="svc-tags">
             <span class="stg">Conversion-Focused</span><span class="stg">A/B Test Ready</span><span class="stg">Fast Loading</span><span class="stg">Lead Forms</span><span class="stg">WhatsApp CTA</span><span class="stg">Ad-Ready</span>
           </div>
-          <a href="https://wa.me/918130589114?text=Hi%20Skillence!%20I%20want%20a%20High-Converting%20Landing%20Page.%20Please%20share%20details%20and%20pricing." target="_blank" rel="noopener" class="btnmain">Get Landing Page — ₹2,499 →</a>
+          <a href="https://wa.me/918030589114?text=Hi%20Skillence!%20I%20want%20a%20High-Converting%20Landing%20Page.%20Please%20share%20details%20and%20pricing." target="_blank" rel="noopener" class="btnmain">Get Landing Page — ₹2,499 →</a>
         </div>
         <div class="svc-feats">
           <div class="sf"><div class="sf-ic">🎯</div><div><h4>Built to Convert</h4><p>Every element placed with psychology-backed conversion principles — headlines, CTAs, social proof.</p></div></div>
@@ -931,21 +969,21 @@ a{cursor:pointer}
       <p class="sdesc">Every project is custom-designed with a clear purpose — to bring real, measurable results for our clients.</p>
     </div>
     <div class="work-grid">
-      <div class="work-card">
+      <a class="work-card" href="https://signaturespadwarka.in/" target="_blank" rel="noopener">
         <div class="wb"><div class="wb-dots"><div class="wb-dot"></div><div class="wb-dot"></div><div class="wb-dot"></div></div><div class="wb-url">signaturespadwarka.in</div></div>
-        <div class="wp"><iframe src="https://signaturespadwarka.in/" scrolling="no" loading="lazy" title="Signature Spa Dwarka"></iframe><div class="wp-overlay"><a href="https://signaturespadwarka.in/" target="_blank" class="wp-btn">View Live Site →</a></div></div>
-        <div class="wi-info"><h4>Signature Spa — Dwarka</h4><p>Premium spa & wellness website with booking and elegant design.</p><a href="https://signaturespadwarka.in/" target="_blank" class="wi-link">Visit Website <svg viewBox="0 0 24 24" style="width:11px;height:11px;fill:var(--accent)"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></a></div>
-      </div>
-      <div class="work-card">
+        <div class="wp"><iframe src="https://signaturespadwarka.in/" scrolling="no" loading="lazy" title="Signature Spa Dwarka"></iframe><div class="wp-overlay"><span class="wp-btn">View Live Site →</span></div></div>
+        <div class="wi-info"><h4>Signature Spa — Dwarka</h4><p>Premium spa & wellness website with booking and elegant design.</p><span class="wi-link">Visit Website <svg viewBox="0 0 24 24" style="width:11px;height:11px;fill:var(--accent)"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></span></div>
+      </a>
+      <a class="work-card" href="https://aashiqpanbhandar.netlify.app/" target="_blank" rel="noopener">
         <div class="wb"><div class="wb-dots"><div class="wb-dot"></div><div class="wb-dot"></div><div class="wb-dot"></div></div><div class="wb-url">aashiqpanbhandar.netlify.app</div></div>
-        <div class="wp"><iframe src="https://aashiqpanbhandar.netlify.app/" scrolling="no" loading="lazy" title="Aashiq Pan Bhandar"></iframe><div class="wp-overlay"><a href="https://aashiqpanbhandar.netlify.app/" target="_blank" class="wp-btn">View Live Site →</a></div></div>
-        <div class="wi-info"><h4>Aashiq Pan Bhandar</h4><p>Local business website with menu showcase and WhatsApp ordering.</p><a href="https://aashiqpanbhandar.netlify.app/" target="_blank" class="wi-link">Visit Website <svg viewBox="0 0 24 24" style="width:11px;height:11px;fill:var(--accent)"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></a></div>
-      </div>
-      <div class="work-card">
+        <div class="wp"><iframe src="https://aashiqpanbhandar.netlify.app/" scrolling="no" loading="lazy" title="Aashiq Pan Bhandar"></iframe><div class="wp-overlay"><span class="wp-btn">View Live Site →</span></div></div>
+        <div class="wi-info"><h4>Aashiq Pan Bhandar</h4><p>Local business website with menu showcase and WhatsApp ordering.</p><span class="wi-link">Visit Website <svg viewBox="0 0 24 24" style="width:11px;height:11px;fill:var(--accent)"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></span></div>
+      </a>
+      <a class="work-card" href="https://skilledboy.netlify.app/" target="_blank" rel="noopener">
         <div class="wb"><div class="wb-dots"><div class="wb-dot"></div><div class="wb-dot"></div><div class="wb-dot"></div></div><div class="wb-url">skilledboy.netlify.app</div></div>
-        <div class="wp"><iframe src="https://skilledboy.netlify.app/" scrolling="no" loading="lazy" title="Skilled Boy Portfolio"></iframe><div class="wp-overlay"><a href="https://skilledboy.netlify.app/" target="_blank" class="wp-btn">View Live Site →</a></div></div>
-        <div class="wi-info"><h4>Skilled Boy — Portfolio</h4><p>Modern developer portfolio with smooth animations and project showcase.</p><a href="https://skilledboy.netlify.app/" target="_blank" class="wi-link">Visit Website <svg viewBox="0 0 24 24" style="width:11px;height:11px;fill:var(--accent)"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></a></div>
-      </div>
+        <div class="wp"><iframe src="https://skilledboy.netlify.app/" scrolling="no" loading="lazy" title="Skilled Boy Portfolio"></iframe><div class="wp-overlay"><span class="wp-btn">View Live Site →</span></div></div>
+        <div class="wi-info"><h4>Skilled Boy — Portfolio</h4><p>Modern developer portfolio with smooth animations and project showcase.</p><span class="wi-link">Visit Website <svg viewBox="0 0 24 24" style="width:11px;height:11px;fill:var(--accent)"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></span></div>
+      </a>
     </div>
   </div>
 </section>
@@ -977,7 +1015,7 @@ a{cursor:pointer}
             <li>5–7 Day Delivery</li>
             <li>1 Month Free Support</li>
           </ul>
-          <a href="https://wa.me/918130589114?text=Hi%20Skillence!%20I%20want%20the%20Portfolio%20Website%20plan%20at%20Rs.2999.%20Please%20tell%20me%20more." target="_blank" rel="noopener" class="pc-btn">Get Started →</a>
+          <a href="https://wa.me/918030589114?text=Hi%20Skillence!%20I%20want%20the%20Portfolio%20Website%20plan%20at%20Rs.2999.%20Please%20tell%20me%20more." target="_blank" rel="noopener" class="pc-btn">Get Started →</a>
         </div>
       </div>
       <div class="pc pop">
@@ -1000,7 +1038,7 @@ a{cursor:pointer}
             <li>7–10 Day Delivery</li>
             <li>3 Months Free Support</li>
           </ul>
-          <a href="https://wa.me/918130589114?text=Hi%20Skillence!%20I%20want%20the%20Business%20Portfolio%20Website%20plan%20at%20Rs.9999.%20Please%20tell%20me%20more." target="_blank" rel="noopener" class="pc-btn">Get Started →</a>
+          <a href="https://wa.me/918030589114?text=Hi%20Skillence!%20I%20want%20the%20Business%20Portfolio%20Website%20plan%20at%20Rs.9999.%20Please%20tell%20me%20more." target="_blank" rel="noopener" class="pc-btn">Get Started →</a>
         </div>
       </div>
       <div class="pc">
@@ -1022,7 +1060,7 @@ a{cursor:pointer}
             <li>7–14 Day Delivery</li>
             <li>2 Months Free Support</li>
           </ul>
-          <a href="https://wa.me/918130589114?text=Hi%20Skillence!%20I%20want%20the%20Shopify%20Full%20Web%20Store%20plan%20at%20Rs.5999.%20Please%20tell%20me%20more." target="_blank" rel="noopener" class="pc-btn">Get Started →</a>
+          <a href="https://wa.me/918030589114?text=Hi%20Skillence!%20I%20want%20the%20Shopify%20Full%20Web%20Store%20plan%20at%20Rs.5999.%20Please%20tell%20me%20more." target="_blank" rel="noopener" class="pc-btn">Get Started →</a>
         </div>
       </div>
     </div>
@@ -1076,14 +1114,14 @@ a{cursor:pointer}
       <h2 class="stitle">Frequently Asked<br>Questions</h2>
     </div>
     <div class="faq-list">
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>How much does a website cost at Skillence?</span><div class="faq-ico">+</div></div><div class="faq-a"><div class="faq-a-inner">Our websites start at just ₹2,999 for a portfolio website. Business websites start at ₹9,999 and Shopify stores start at ₹5,999. We also offer EMI payment options with zero hidden charges. The final price depends on your specific requirements — WhatsApp us for a free custom quote.</div></div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>How long does it take to build a website?</span><div class="faq-ico">+</div></div><div class="faq-a"><div class="faq-a-inner">Portfolio websites are typically delivered in 5–7 days. Business websites take 7–10 days. Shopify stores take 7–14 days depending on the number of products. We have a 7-day delivery guarantee on standard projects — if we miss the deadline, you get a full refund.</div></div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Will my website rank on Google?</span><div class="faq-ico">+</div></div><div class="faq-a"><div class="faq-a-inner">Yes! Every website we build includes basic on-page SEO — proper meta tags, schema markup, fast load speed, and Google-friendly URL structure. Business plan clients get advanced SEO including local SEO setup, Google Search Console, and keyword-optimised content. Results typically appear within 30–90 days.</div></div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Will my website be mobile-friendly?</span><div class="faq-ico">+</div></div><div class="faq-a"><div class="faq-a-inner">Absolutely. Every single website we build is 100% mobile-responsive and tested across all screen sizes — from small phones to large desktops. Mobile-first design is the standard for all our projects because 80%+ of Indian internet users browse on mobile devices.</div></div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>What information do you need from me to start?</span><div class="faq-ico">+</div></div><div class="faq-a"><div class="faq-a-inner">To get started, we need your business name, what you do, your target audience, your logo (if you have one), any photos or content you want on the site, and your color preferences. Don't worry if you don't have everything — we'll guide you through the whole process step by step on WhatsApp.</div></div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Do you provide hosting and domain as well?</span><div class="faq-ico">+</div></div><div class="faq-a"><div class="faq-a-inner">We provide complete guidance on setting up domain and hosting at the best prices (typically ₹500–1,500/year for domain + hosting combined). We handle the entire technical setup and deployment for you. Alternatively, we can deploy on your existing hosting at no extra cost.</div></div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Can I make changes to my website after it's delivered?</span><div class="faq-ico">+</div></div><div class="faq-a"><div class="faq-a-inner">Yes! All our plans include free support for 1–3 months after delivery during which we handle minor updates at no charge. After the support period, we offer affordable maintenance packages. Major redesigns are quoted separately based on requirements.</div></div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Do you serve clients outside Delhi?</span><div class="faq-ico">+</div></div><div class="faq-a"><div class="faq-a-inner">Yes! We serve clients across all of India — Delhi, Mumbai, Bangalore, Hyderabad, Chennai, Pune, Kolkata, Jaipur, Ahmedabad, Lucknow, and every other city. 100% of our work is done remotely over WhatsApp and email, so location is never a barrier.</div></div></div>
+      <div class="faq-item"><button type="button" class="faq-q" onclick="toggleFaq(this)"><span>How much does a website cost at Skillence? | Web Development Prices in India</span><span class="faq-ico">+</span></button><div class="faq-a"><div class="faq-a-inner">Skillence is India's most affordable web development agency. Our websites start at just ₹2,999 for a portfolio website. Business websites (ideal for coaches, freelancers & small businesses) start at ₹9,999. Shopify e-commerce stores start at ₹5,999. Landing pages start at ₹2,499. We also offer EMI payment options with zero hidden charges. WhatsApp us at +91 8030589114 for a free custom quote.</div></div></div>
+      <div class="faq-item"><button type="button" class="faq-q" onclick="toggleFaq(this)"><span>How long does it take to build a professional website in India?</span><span class="faq-ico">+</span></button><div class="faq-a"><div class="faq-a-inner">At Skillence, portfolio websites are delivered in 5–7 days. Business websites take 7–10 days. Shopify e-commerce stores take 7–14 days depending on the number of products. We offer a 7-day delivery guarantee on standard web development projects — if we miss the deadline, you get a full refund. We are one of the fastest web development agencies in India.</div></div></div>
+      <div class="faq-item"><button type="button" class="faq-q" onclick="toggleFaq(this)"><span>Will my website rank on Google? | SEO-Optimized Web Design India</span><span class="faq-ico">+</span></button><div class="faq-a"><div class="faq-a-inner">Yes! Every website Skillence builds is SEO-optimized from day one. This includes proper meta tags, schema markup, fast load speed, Core Web Vitals optimization, and Google-friendly URL structure. Business plan clients get advanced SEO including local SEO setup for their city (Delhi, Mumbai, Bangalore, etc.), Google Search Console integration, and keyword-rich content. Most clients start seeing Google ranking improvements within 30–90 days.</div></div></div>
+      <div class="faq-item"><button type="button" class="faq-q" onclick="toggleFaq(this)"><span>Will my website be mobile-friendly and responsive?</span><span class="faq-ico">+</span></button><div class="faq-a"><div class="faq-a-inner">Absolutely. Every single website we build at Skillence is 100% mobile-responsive and tested across all screen sizes — phones, tablets, and desktops. Mobile-first design is our standard because 82%+ of Indian internet users browse on mobile devices. A mobile-friendly website also ranks higher on Google in India.</div></div></div>
+      <div class="faq-item"><button type="button" class="faq-q" onclick="toggleFaq(this)"><span>What do I need to provide to get started with my website?</span><span class="faq-ico">+</span></button><div class="faq-a"><div class="faq-a-inner">To start your web development project with Skillence, we need: your business name, what you do and your target audience, your logo (if available — we can help create one), photos or content (we can provide guidance), and color preferences. Don't worry if you don't have everything ready — our team guides you through every step on WhatsApp, completely free.</div></div></div>
+      <div class="faq-item"><button type="button" class="faq-q" onclick="toggleFaq(this)"><span>Do you provide domain and hosting for websites in India?</span><span class="faq-ico">+</span></button><div class="faq-a"><div class="faq-a-inner">Yes! We provide complete guidance on setting up your domain and web hosting in India at the best prices — typically ₹500–1,500/year for domain + hosting combined (providers like Hostinger, GoDaddy, etc.). Skillence handles the entire technical setup, DNS configuration, SSL certificate, and deployment for you. We can also deploy on your existing hosting at no extra cost.</div></div></div>
+      <div class="faq-item"><button type="button" class="faq-q" onclick="toggleFaq(this)"><span>Can I update my website after delivery? | Website Maintenance India</span><span class="faq-ico">+</span></button><div class="faq-a"><div class="faq-a-inner">Yes! All Skillence plans include free post-delivery support for 1–3 months, during which minor updates, content changes, and small modifications are handled at no charge. After the support period, we offer affordable website maintenance packages starting at ₹499/month. For major redesigns or new feature additions, we provide a custom quote based on your requirements.</div></div></div>
+      <div class="faq-item"><button type="button" class="faq-q" onclick="toggleFaq(this)"><span>Do you build websites for businesses across all of India? | Pan-India Web Agency</span><span class="faq-ico">+</span></button><div class="faq-a"><div class="faq-a-inner">Yes! Skillence serves clients in every city across India — Delhi, Mumbai, Bangalore, Hyderabad, Chennai, Pune, Kolkata, Jaipur, Ahmedabad, Lucknow, Chandigarh, Surat, Indore, and all other cities. 100% of our web development work is done remotely over WhatsApp and email, so your location is never a barrier. Same quality, same price, same fast delivery — anywhere in India.</div></div></div>
     </div>
   </div>
 </section>
@@ -1097,9 +1135,9 @@ a{cursor:pointer}
       <p class="sdesc" style="margin:0 auto">Free knowledge to help Indian businesses succeed digitally. No fluff, just actionable advice.</p>
     </div>
     <div class="blog-grid">
-      <div class="blog-card fu"><div class="blog-img" style="background:linear-gradient(135deg,rgba(255,98,0,.15),rgba(255,98,0,.05))">🔍</div><div class="blog-body"><div class="blog-cat">SEO Guide</div><h3>How to Rank Your Business on Google in 30 Days</h3><p>Step-by-step guide for Indian small businesses to appear on Google page 1 without spending on ads.</p><div class="blog-meta">5 min read · Free Guide</div><a href="https://wa.me/918130589114?text=Hi!%20Send%20me%20the%20SEO%20guide." class="blog-link" target="_blank">Read Full Guide →</a></div></div>
-      <div class="blog-card fu"><div class="blog-img" style="background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(124,58,237,.05))">💰</div><div class="blog-body"><div class="blog-cat">Business Growth</div><h3>Why Your Website is Losing You Money Every Day</h3><p>The hidden cost of a slow, outdated, or non-existent website — and exactly how to fix it fast.</p><div class="blog-meta">4 min read · Free Article</div><a href="https://wa.me/918130589114?text=Hi!%20Send%20me%20the%20website%20article." class="blog-link" target="_blank">Read Full Article →</a></div></div>
-      <div class="blog-card fu"><div class="blog-img" style="background:linear-gradient(135deg,rgba(6,182,212,.15),rgba(6,182,212,.05))">📱</div><div class="blog-body"><div class="blog-cat">Web Design</div><h3>5 Website Mistakes Indian Businesses Make in 2024</h3><p>Common website mistakes that are killing your Google ranking and costing you customers — and how to avoid them.</p><div class="blog-meta">6 min read · Free Article</div><a href="https://wa.me/918130589114?text=Hi!%20Send%20me%20the%20mistakes%20article." class="blog-link" target="_blank">Read Full Article →</a></div></div>
+      <div class="blog-card fu"><div class="blog-img" style="background:linear-gradient(135deg,rgba(255,98,0,.15),rgba(255,98,0,.05))">🔍</div><div class="blog-body"><div class="blog-cat">SEO & Digital Marketing</div><h3>How to Rank Your Business Website on Google in 30 Days — Free SEO Guide for Indian Businesses</h3><p>Step-by-step local SEO strategy for Indian businesses. Learn keyword research, on-page SEO, Google Business Profile setup, and backlink building to dominate search results in your city.</p><div class="blog-meta">· web development SEO · digital marketing India · local SEO guide</div><a href="https://wa.me/918030589114?text=Hi%20Skillence!%20Please%20send%20me%20the%20free%20SEO%20guide%20for%20Indian%20businesses." class="blog-link" target="_blank" rel="noopener">Get Free SEO Guide →</a></div></div>
+      <div class="blog-card fu"><div class="blog-img" style="background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(124,58,237,.05))">💻</div><div class="blog-body"><div class="blog-cat">Web Development India</div><h3>Affordable Website Design for Small Businesses in India — Starting ₹2,999 — Everything You Need to Know</h3><p>How a professional, fast-loading website built by an experienced web development agency in India can triple your leads, boost Google rankings, and grow your business revenue 3x in 90 days.</p><div class="blog-meta">· website design India · affordable web development · small business website</div><a href="https://wa.me/918030589114?text=Hi%20Skillence!%20I%20want%20to%20know%20about%20affordable%20website%20design%20for%20my%20business." class="blog-link" target="_blank" rel="noopener">Learn More →</a></div></div>
+      <div class="blog-card fu"><div class="blog-img" style="background:linear-gradient(135deg,rgba(6,182,212,.15),rgba(6,182,212,.05))">📈</div><div class="blog-body"><div class="blog-cat">Digital Marketing Strategy</div><h3>Digital Marketing for Indian Businesses in 2024 — Website + SEO + Social Media = Maximum Growth</h3><p>Complete digital marketing checklist for Indian entrepreneurs. From building a conversion-optimised website to running Google Ads, Instagram marketing, and automating your customer funnel with AI tools.</p><div class="blog-meta">· digital marketing agency India · online marketing · business growth strategy</div><a href="https://wa.me/918030589114?text=Hi%20Skillence!%20I%20want%20a%20free%20digital%20marketing%20strategy%20consultation." class="blog-link" target="_blank" rel="noopener">Get Free Strategy Call →</a></div></div>
     </div>
   </div>
 </section>
@@ -1140,14 +1178,14 @@ a{cursor:pointer}
         <h2 class="fu" style="font-size:clamp(1.6rem,3vw,2.3rem);font-weight:800;letter-spacing:-.8px;margin-bottom:10px;line-height:1.18">Ready to Build Your<br><span style="color:var(--accent)">Dream Website?</span></h2>
         <p class="fu" style="color:var(--muted);font-size:.9rem;line-height:1.78;margin-bottom:28px">First consultation is 100% free. No pressure, no obligation — just expert advice tailored to your business goals. Respond within hours.</p>
         <div class="contact-channels">
-          <a href="https://wa.me/918130589114?text=Hi%20Skillence!%20I%20want%20to%20discuss%20my%20website%20project.%20Please%20help%20me." target="_blank" rel="noopener" class="cc wa fu">
+          <a href="https://wa.me/918030589114?text=Hi%20Skillence!%20I%20want%20to%20discuss%20my%20website%20project.%20Please%20help%20me." target="_blank" rel="noopener" class="cc wa fu">
             <div class="cc-ic"><svg viewBox="0 0 24 24" style="width:19px;height:19px;fill:#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967c-.273-.099-.471-.148-.67.15c-.197.297-.767.966-.94 1.164c-.173.199-.347.223-.644.075c-.297-.15-1.255-.463-2.39-1.475c-.883-.788-1.48-1.761-1.653-2.059c-.173-.297-.018-.458.13-.606c.134-.133.298-.347.446-.52c.149-.174.198-.298.298-.497c.099-.198.05-.371-.025-.52c-.075-.149-.669-1.612-.916-2.207c-.242-.579-.487-.5-.669-.51c-.173-.008-.371-.01-.57-.01c-.198 0-.52.074-.792.372c-.272.297-1.04 1.016-1.04 2.479c0 1.462 1.065 2.875 1.213 3.074c.149.198 2.096 3.2 5.077 4.487c.709.306 1.262.489 1.694.625c.712.227 1.36.195 1.871.118c.571-.085 1.758-.719 2.006-1.413c.248-.694.248-1.289.173-1.413c-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214l-3.741.982l.998-3.648l-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884c2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></div>
-            <div class="cc-label">WhatsApp Chat<small>+91 8130589114 · Instant Reply</small></div>
+            <div class="cc-label">WhatsApp Chat<small>+91 8030589114 · Instant Reply</small></div>
             <span class="cc-arr">→</span>
           </a>
-          <a href="tel:+918130589114" class="cc ph fu">
+          <a href="tel:+918030589114" class="cc ph fu">
             <div class="cc-ic" style="font-size:1.2rem">📞</div>
-            <div class="cc-label">Call Us Directly<small>+91 8130589114 · Mon–Sat 10am–7pm</small></div>
+            <div class="cc-label">Call Us Directly<small>+91 8030589114 · Mon–Sat 10am–7pm</small></div>
             <span class="cc-arr">→</span>
           </a>
           <a href="https://www.instagram.com/skilllence/" target="_blank" class="cc ig fu">
@@ -1169,7 +1207,7 @@ a{cursor:pointer}
         <div class="ci-row"><div class="ci-ic">⏱️</div><div class="ci-text">Ultra-Fast Delivery<small>Portfolios in 5–7 days · Shopify in 7–14 days</small></div></div>
         <div class="ci-row"><div class="ci-ic">💰</div><div class="ci-text">Starting from ₹2,999 Only<small>No hidden charges · EMI available</small></div></div>
         <div class="ci-row"><div class="ci-ic">🔒</div><div class="ci-text">100% Money-Back Guarantee<small>Unlimited revisions until you're 100% happy</small></div></div>
-        <a href="https://wa.me/918130589114?text=Hi%20Skillence!%20I%20want%20a%20free%20consultation%20for%20my%20website.%20My%20business%20is%20____%20and%20my%20budget%20is%20around%20____." target="_blank" rel="noopener" class="btnmain" style="width:100%;justify-content:center;margin-top:22px;display:flex">💬 Start Free Consultation</a>
+        <a href="https://wa.me/918030589114?text=Hi%20Skillence!%20I%20want%20a%20free%20consultation%20for%20my%20website.%20My%20business%20is%20____%20and%20my%20budget%20is%20around%20____." target="_blank" rel="noopener" class="btnmain" style="width:100%;justify-content:center;margin-top:22px;display:flex">💬 Start Free Consultation</a>
       </div>
     </div>
 
@@ -1178,7 +1216,7 @@ a{cursor:pointer}
       <div class="biz-card fu">
         <div class="biz-card-ic">📞</div>
         <h4>Phone & WhatsApp</h4>
-        <p>+91 8130589114<br><small style="color:var(--muted)">Mon–Sat · 10am–7pm IST</small></p>
+        <p>+91 8030589114<br><small style="color:var(--muted)">Mon–Sat · 10am–7pm IST</small></p>
       </div>
       <div class="biz-card fu">
         <div class="biz-card-ic">📍</div>
@@ -1222,16 +1260,16 @@ a{cursor:pointer}
         <div class="footer-social">
           <a href="https://www.instagram.com/skilllence/" target="_blank" class="fs-link"><svg viewBox="0 0 24 24" style="fill:url(#igf)"><defs><linearGradient id="igf" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#f09433"/><stop offset="50%" style="stop-color:#dc2743"/><stop offset="100%" style="stop-color:#bc1888"/></linearGradient></defs><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
           <a href="https://www.youtube.com/@Skilllence" target="_blank" class="fs-link"><svg viewBox="0 0 24 24" style="fill:#FF0000"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
-          <a href="https://wa.me/918130589114" target="_blank" class="fs-link"><svg viewBox="0 0 24 24" style="fill:#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967c-.273-.099-.471-.148-.67.15c-.197.297-.767.966-.94 1.164c-.173.199-.347.223-.644.075c-.297-.15-1.255-.463-2.39-1.475c-.883-.788-1.48-1.761-1.653-2.059c-.173-.297-.018-.458.13-.606c.134-.133.298-.347.446-.52c.149-.174.198-.298.298-.497c.099-.198.05-.371-.025-.52c-.075-.149-.669-1.612-.916-2.207c-.242-.579-.487-.5-.669-.51c-.173-.008-.371-.01-.57-.01c-.198 0-.52.074-.792.372c-.272.297-1.04 1.016-1.04 2.479c0 1.462 1.065 2.875 1.213 3.074c.149.198 2.096 3.2 5.077 4.487c.709.306 1.262.489 1.694.625c.712.227 1.36.195 1.871.118c.571-.085 1.758-.719 2.006-1.413c.248-.694.248-1.289.173-1.413c-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214l-3.741.982l.998-3.648l-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884c2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a>
+          <a href="https://wa.me/918030589114" target="_blank" class="fs-link"><svg viewBox="0 0 24 24" style="fill:#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967c-.273-.099-.471-.148-.67.15c-.197.297-.767.966-.94 1.164c-.173.199-.347.223-.644.075c-.297-.15-1.255-.463-2.39-1.475c-.883-.788-1.48-1.761-1.653-2.059c-.173-.297-.018-.458.13-.606c.134-.133.298-.347.446-.52c.149-.174.198-.298.298-.497c.099-.198.05-.371-.025-.52c-.075-.149-.669-1.612-.916-2.207c-.242-.579-.487-.5-.669-.51c-.173-.008-.371-.01-.57-.01c-.198 0-.52.074-.792.372c-.272.297-1.04 1.016-1.04 2.479c0 1.462 1.065 2.875 1.213 3.074c.149.198 2.096 3.2 5.077 4.487c.709.306 1.262.489 1.694.625c.712.227 1.36.195 1.871.118c.571-.085 1.758-.719 2.006-1.413c.248-.694.248-1.289.173-1.413c-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214l-3.741.982l.998-3.648l-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884c2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a>
         </div>
       </div>
       <div class="footer-col">
         <h4>Services</h4>
         <ul>
-          <li><a href="#service" onclick="switchTab('portfolio',document.querySelectorAll('.tab-btn')[0])">Portfolio Website</a></li>
-          <li><a href="#service" onclick="switchTab('business',document.querySelectorAll('.tab-btn')[1])">Business Website</a></li>
-          <li><a href="#service" onclick="switchTab('shopify',document.querySelectorAll('.tab-btn')[2])">Shopify Store</a></li>
-          <li><a href="#service" onclick="switchTab('landing',document.querySelectorAll('.tab-btn')[3])">Landing Page</a></li>
+          <li><a href="#service">Portfolio Website</a></li>
+          <li><a href="#service">Business Website</a></li>
+          <li><a href="#service">Shopify Store</a></li>
+          <li><a href="#service">Landing Page</a></li>
           <li><a href="#pricing">View Pricing</a></li>
         </ul>
       </div>
@@ -1249,11 +1287,11 @@ a{cursor:pointer}
         <h4>Contact Us</h4>
         <div class="footer-contact-item">
           <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
-          <a href="tel:+918130589114" style="color:var(--muted)">+91 8130589114</a>
+          <a href="tel:+918030589114" style="color:var(--muted)">+91 8030589114</a>
         </div>
         <div class="footer-contact-item">
           <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51C9.391 8.01 9.193 8 8.994 8c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
-          <a href="https://wa.me/918130589114" target="_blank" style="color:var(--muted)">WhatsApp Chat</a>
+          <a href="https://wa.me/918030589114" target="_blank" style="color:var(--muted)">WhatsApp Chat</a>
         </div>
         <div class="footer-contact-item">
           <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
@@ -1339,7 +1377,7 @@ a{cursor:pointer}
       <div class="wab-msg">We build websites starting at <strong>₹2,999</strong>!<br><br>🌐 Portfolio — ₹2,999<br>💼 Business Site — ₹9,999<br>🛒 Shopify Store — ₹5,999<br><br>Chat with us right now 👇<div class="wab-time">Now</div></div>
     </div>
     <div class="wab-footer">
-      <a href="https://wa.me/918130589114?text=Hi%20Skillence!%20I%20saw%20your%20website%20and%20I%20am%20interested%20in%20getting%20a%20website%20made.%20Please%20share%20details." target="_blank" rel="noopener" class="wab-btn">
+      <a href="https://wa.me/918030589114?text=Hi%20Skillence!%20I%20saw%20your%20website%20and%20I%20am%20interested%20in%20getting%20a%20website%20made.%20Please%20share%20details." target="_blank" rel="noopener" class="wab-btn">
         <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
         Chat on WhatsApp
       </a>
@@ -1446,48 +1484,51 @@ function toggleMenu(){
 const tabOrder = ['portfolio','business','shopify','landing'];
 let currentTab = 0;
 
-function switchTab(id, btn){
+function switchTab(id){
   document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   const pane = document.getElementById('tab-' + id);
   if(pane) pane.classList.add('active');
-  if(btn) btn.classList.add('active');
-  currentTab = tabOrder.indexOf(id);
-  if(currentTab < 0) currentTab = 0;
+  // Mark the clicked button active
+  const allBtns = document.querySelectorAll('.tab-btn');
+  const idx = tabOrder.indexOf(id);
+  if(idx >= 0 && allBtns[idx]) allBtns[idx].classList.add('active');
+  currentTab = idx >= 0 ? idx : 0;
 }
 
-// Touch swipe for tabs on mobile
+// Touch swipe inside service section
 (function(){
   let sx = 0, sy0 = 0;
-  document.addEventListener('touchstart', e => {
+  document.addEventListener('touchstart', function(e){
     sx = e.touches[0].clientX;
     sy0 = e.touches[0].clientY;
   }, {passive:true});
-  document.addEventListener('touchend', e => {
+  document.addEventListener('touchend', function(e){
     const dx = e.changedTouches[0].clientX - sx;
     const dy = e.changedTouches[0].clientY - sy0;
-    if(Math.abs(dx) < Math.abs(dy) * 1.5) return; // vertical scroll, ignore
+    if(Math.abs(dy) > Math.abs(dx)) return; // vertical scroll
+    if(Math.abs(dx) < 50) return;
     const svc = document.getElementById('service');
     if(!svc) return;
     const r = svc.getBoundingClientRect();
-    if(r.top < window.innerHeight && r.bottom > 0 && Math.abs(dx) > 50){
+    if(r.top < window.innerHeight && r.bottom > 0){
       if(dx < 0 && currentTab < tabOrder.length - 1) currentTab++;
       else if(dx > 0 && currentTab > 0) currentTab--;
-      const id = tabOrder[currentTab];
-      const allBtns = document.querySelectorAll('.tab-btn');
-      switchTab(id, allBtns[currentTab]);
-      if(allBtns[currentTab]) allBtns[currentTab].scrollIntoView({inline:'center',behavior:'smooth',block:'nearest'});
+      else return;
+      switchTab(tabOrder[currentTab], null);
     }
   }, {passive:true});
 })();
 
 /* ══════════════════════════════════
-   FAQ ACCORDION
+   FAQ ACCORDION — mobile safe
 ══════════════════════════════════ */
-function toggleFaq(qEl){
-  const item = qEl.parentElement;
+function toggleFaq(btn){
+  // btn is the <button> element, parent is .faq-item
+  const item = btn.closest('.faq-item');
+  if(!item) return;
   const wasOpen = item.classList.contains('open');
-  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
   if(!wasOpen) item.classList.add('open');
 }
 
@@ -1500,7 +1541,8 @@ function loadMore(){
     rv.classList.remove('rv-hidden');
     setTimeout(() => rv.classList.add('vis'), i*80);
   });
-  document.getElementById('loadMoreBtn').style.display = 'none';
+  const lb = document.getElementById('loadMoreBtn');
+  if(lb) lb.style.display = 'none';
   try{ const saved=JSON.parse(localStorage.getItem('sk_revs')||'[]'); saved.forEach(r=>renderReview(r,false)); }catch(e){}
 }
 
@@ -1615,11 +1657,11 @@ function closeToast(){
   document.getElementById('toastPop').classList.remove('show');
 }
 
-// First toast at 12s, then every 10–13s
+// First toast at 20s, then every 18–22s
 setTimeout(function fireToast(){
   showToast();
-  setTimeout(fireToast, 10000 + Math.random()*3000);
-}, 12000);
+  setTimeout(fireToast, 18000 + Math.random()*4000);
+}, 20000);
 </script>
 </body>
 </html>
